@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment3</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+
+sum!!
+<div th:text="${result}">-</div>
+
+num1 :
+<input id="input_num1" type="number" /> <br/>
+num2 :
+<input id="input_num2" type="number" /> <br/>
+num2 :
+<input id="input_num3" type="number" /> <br/>
+
+sum : <input id="input_sum" />
+<button onclick="getSum()">get SUM!!</button>
+
+<script>
+    function getSum(){
+        $.ajax({
+            url: "/api/assignment3",
+            method: "GET",
+            data: {
+                num1 : $("#input_num1").val()
+                , num2 : $("#input_num2").val()
+                , num3 : $("#input_num3").val()
+            },
+            success: (data, status, xhr)=>{
+                //alert(JSON.stringify(data));
+                $("#input_sum").val(data);
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+</script>
+
+</body>
+</html>

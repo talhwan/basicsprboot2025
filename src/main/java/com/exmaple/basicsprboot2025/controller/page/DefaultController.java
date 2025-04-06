@@ -39,4 +39,35 @@ public class DefaultController {
         model.addAttribute("result", result);
         return "testparameter";
     }
+
+    /*
+    week3 assignment #1
+    Create a page controller that accesses the address url => '/assignment1'.
+    Configure it so that a normal page is returned.
+    * */
+
+    @RequestMapping("/assignment1")
+    public String assignment1(){
+        return "assignment1";
+    }
+
+    @RequestMapping("/assignment2")
+    public String assignment2(){
+        return "assignment2";
+    }
+
+    /*
+    Create a page controller and rest controller that passes three parameters and calculates their sum.
+    You can create the url freely.
+    * */
+    @RequestMapping("assignment3")
+    public String assignment3(@RequestParam int num1, @RequestParam int num2, @RequestParam int num3
+    , Model model){
+        int sum = 0;
+        sum = num1 + num2 + num3;
+        model.addAttribute("result", sum);
+        return "assignment3";
+    }
+
+
 }

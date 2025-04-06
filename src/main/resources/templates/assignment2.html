@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment2</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+
+Assignment2
+<button onclick="listener_btn()">call restCtrl</button>
+
+<script>
+    function listener_btn(){
+        alert("button clicked!");
+
+        $.ajax({
+            url: "/api/assignment2",
+            method: "GET",
+            data: {},
+            success: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+</script>
+</body>
+</html>
