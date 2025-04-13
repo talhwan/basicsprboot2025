@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DETAIL</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+POST DETAIL
+
+<div>
+    id : <input type="text" id="detail_post_id"/> <br/>
+    title : <input type="text" id="detail_post_title"/> <br/>
+    content : <input type="text" id="detail_post_content"/> <br/>
+    author : <input type="text" id="detail_post_author"/> <br/>
+</div>
+<div>
+    <button onclick="update_post()">UPDATE</button>
+    <button onclick="delete_post()">DELETE</button>
+</div>
+
+<script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        detail_post();
+    });
+
+    let tempHref = window.location.href; // http://localhost:8080/post/detail/1
+    /*
+    //1)
+    let tempIndexOf = tempHref.lastIndexOf("/");
+    let tempId = tempHref.substring(tempIndexOf + 1);
+    alert(tempId);
+    * */
+
+    //2)
+    let tempArray = tempHref.split("/");
+    let tempId = tempArray[tempArray.length - 1];
+
+    function delete_post(){
+        $.ajax({
+            url: "/api/post/delete",
+            method: "GET",
+            data: {
+                id : tempId
+            },
+            success: (data, status, xhr)=>{
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+    function update_post(){
+        $.ajax({
+            url: "/api/post/update",
+            method: "GET",
+            data: {
+                id : tempId
+                , title : $("#detail_post_title").val()
+                , content : $("#detail_post_content").val()
+                , author : $("#detail_post_author").val()
+            },
+            success: (data, status, xhr)=>{
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+
+    function detail_post(){
+        $.ajax({
+            url: "/api/post/detail/" + tempId,
+            method: "GET",
+            data: {},
+            success: (data, status, xhr)=>{
+                //alert(JSON.stringify(data));
+                $("#detail_post_id").val(data["id"]);
+                $("#detail_post_title").val(data["title"]);
+                $("#detail_post_content").val(data["content"]);
+                $("#detail_post_author").val(data["author"]);
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+</script>
+
+</body>
+</html>

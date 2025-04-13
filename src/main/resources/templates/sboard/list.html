@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LIST</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+SBOARD LIST <br/>
+<br/>
+SEARCH KEYWORD :
+<input type="text" id="search_title" />
+<br/>
+<br/>
+LIST<br/>
+<button onclick="list_sboard()">SEARCH</button>
+<div id="div_list"></div>
+
+<script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        list_sboard();
+    });
+    function detail_sboard(id){
+        location.href = "/sboard/detail/" + id;
+    }
+    function list_sboard(){
+        $.ajax({
+            url: "/api/sboard/list",
+            method: "GET",
+            data: {
+                title : $("#search_title").val()
+            },
+            success: (data, status, xhr)=>{
+                //alert(JSON.stringify(data));
+                $("#div_list").html("");
+                let list = data;
+                for(let each of list){
+                    $("#div_list").append(
+                        "<div onclick='detail_sboard("+each["id"]+")'>" + each["id"] + "//" +each["title"]+"</div>"
+                    );
+                }
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+</script>
+
+</body>
+</html>

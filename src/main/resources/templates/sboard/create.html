@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+
+SBOARD CREATE
+
+Title : <br/>
+<input type="text" class="input_value" id="create_sboard_title" /> <br/>
+Content : <br/>
+<input type="text" class="input_value" id="create_sboard_content" /> <br/>
+Author : <br/>
+<input type="text" class="input_value" id="create_sboard_author" /> <br/>
+
+<div>
+    <button onclick="create_sboard()">CREATE</button>
+</div>
+
+<script>
+    function create_sboard(){
+
+        let params = {};
+        let input_value = $(".input_value");
+        for(let each of input_value){
+            let eachId = $(each).attr("id");
+            let eachKey = eachId.replace("create_sboard_", "");
+            params[eachKey] = $(each).val();
+        }
+
+        $.ajax({
+            url: "/api/sboard/create",
+            method: "GET",
+            data: params,
+            success: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+</script>
+</body>
+</html>
